@@ -83,3 +83,5 @@ tmp/*
 config/config.ini
 main
 gin-bin
+
+.history
