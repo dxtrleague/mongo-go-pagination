@@ -3,13 +3,14 @@ package mongopagination
 import (
 	"context"
 	"fmt"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"sync"
 	"testing"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type TodoTest struct {
@@ -65,7 +66,7 @@ func TestPagingQuery_Find(t *testing.T) {
 		{"status", 1},
 	}
 	collection := db.Collection(DatabaseCollection)
-	paginatedData, err := New(collection).Limit(limit).Page(page).Sort("price", -1).Select(projection).Filter(filter).Find()
+	paginatedData, err := New(collection).Limit(limit).Page(page).Sort("price", -1).Select(projection).Filter(filter).Find(context.Background())
 
 	if err != nil {
 		t.Errorf("Error while pagination. Error: %s", err.Error())
@@ -84,13 +85,13 @@ func TestPagingQuery_Find(t *testing.T) {
 	}
 
 	// no limit or page provided error
-	_, noLimitOrPageError := New(collection).Sort("price", -1).Select(projection).Filter(filter).Find()
+	_, noLimitOrPageError := New(collection).Sort("price", -1).Select(projection).Filter(filter).Find(context.Background())
 	if noLimitOrPageError == nil {
 		t.Errorf("Error expected but got no error")
 	}
 
 	// no filter error
-	_, noFilterError := New(collection).Limit(limit).Page(page).Sort("price", -1).Select(projection).Find()
+	_, noFilterError := New(collection).Limit(limit).Page(page).Sort("price", -1).Select(projection).Find(context.Background())
 	if noFilterError == nil {
 		t.Errorf("Error expected but got no error")
 	}

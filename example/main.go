@@ -3,17 +3,18 @@ package main
 import (
 	"context"
 	"fmt"
-	paginate "github.com/gobeam/mongo-go-pagination"
+	"time"
+
+	paginate "github.com/dxtrleague/mongo-go-pagination"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
 )
 
 // Product struct
 type Product struct {
-	Id       primitive.ObjectID `json:"_id" bson:"_id"`
+	ID       primitive.ObjectID `json:"_id" bson:"_id"`
 	Name     string             `json:"name" bson:"name"`
 	Quantity float64            `json:"qty" bson:"qty"`
 	Price    float64            `json:"price" bson:"price"`
@@ -21,9 +22,11 @@ type Product struct {
 
 func main() {
 	// Establishing mongo db connection
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
 	if err != nil {
+		fmt.Println(err)
 		panic(err)
 	}
 
@@ -37,8 +40,9 @@ func main() {
 		{"qty", 1},
 	}
 	// Querying paginated data
-	paginatedData, err := paginate.New(collection).Limit(limit).Page(page).Sort("price", -1).Select(projection).Filter(filter).Find()
+	paginatedData, err := paginate.New(collection).Limit(limit).Page(page).Sort("price", -1).Select(projection).Filter(filter).Find(ctx)
 	if err != nil {
+		fmt.Println(err)
 		panic(err)
 	}
 
@@ -73,6 +77,7 @@ func main() {
 	// because you can pass filters directly through Aggregate param
 	aggPaginatedData, err := paginate.New(collection).Limit(limit).Page(page).Sort("price", -1).Aggregate(match, projectQuery)
 	if err != nil {
+		fmt.Println(err)
 		panic(err)
 	}
 
