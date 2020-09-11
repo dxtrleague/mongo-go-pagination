@@ -1,5 +1,5 @@
 # Golang Mongo Pagination For Package mongo-go-driver
-[![Build][Build-Status-Image]][Build-Status-Url] [![Go Report Card](https://goreportcard.com/badge/github.com/gobeam/mongo-go-pagination?branch=master&kill_cache=1)](https://goreportcard.com/report/github.com/gobeam/mongo-go-pagination) [![GoDoc][godoc-image]][godoc-url]
+[![Build][Build-Status-Image]][Build-Status-Url] [![Go Report Card](https://goreportcard.com/badge/github.com/dxtrleague/mongo-go-pagination?branch=master&kill_cache=1)](https://goreportcard.com/report/github.com/dxtrleague/mongo-go-pagination) [![GoDoc][godoc-image]][godoc-url]
 [![Coverage Status](https://coveralls.io/repos/github/gobeam/mongo-go-pagination/badge.svg?branch=master)](https://coveralls.io/github/gobeam/mongo-go-pagination?branch=master)
 
 For all your simple query to aggregation pipeline this is simple and easy to use Pagination driver with information like Total, Page, PerPage, Prev, Next, TotalPage and your actual mongo result. 
@@ -8,13 +8,13 @@ For all your simple query to aggregation pipeline this is simple and easy to use
 ## Install
 
 ``` bash
-$ go get -u -v github.com/gobeam/mongo-go-pagination
+$ go get -u -v github.com/dxtrleague/mongo-go-pagination
 ```
 
 or with dep
 
 ``` bash
-$ dep ensure -add github.com/gobeam/mongo-go-pagination
+$ dep ensure -add github.com/dxtrleague/mongo-go-pagination
 ```
 
 
@@ -26,7 +26,7 @@ package main
 import (
 	"context"
 	"fmt"
-	. "github.com/gobeam/mongo-go-pagination"
+	. "github.com/dxtrleague/mongo-go-pagination"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -163,5 +163,5 @@ Copyright (c) 2020
 
 [Build-Status-Url]: https://travis-ci.org/gobeam/mongo-go-pagination
 [Build-Status-Image]: https://travis-ci.org/gobeam/mongo-go-pagination.svg?branch=master
-[godoc-url]: https://pkg.go.dev/github.com/gobeam/mongo-go-pagination?tab=doc
-[godoc-image]: https://godoc.org/github.com/gobeam/mongo-go-pagination?status.svg
+[godoc-url]: https://pkg.go.dev/github.com/dxtrleague/mongo-go-pagination?tab=doc
+[godoc-image]: https://godoc.org/github.com/dxtrleague/mongo-go-pagination?status.svg
